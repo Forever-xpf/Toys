@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>图片上传</title>
 </head>
 <body>
-$END$
+   <form action="" method="post" enctype="multipart/form-data">
+       <input type="file" name="upload_file"/>
+       <input type="submit" value="图片上传"/>
+   </form>
 </body>
 </html>

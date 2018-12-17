@@ -46,6 +46,7 @@ public ServerResponse get_category(HttpSession session,Integer categoryId){
         if(userInfo.getRole()!=Const.RoleEnum.ROLE_ADMIN.getCode()){
             return ServerResponse.serverResponseByError(Const.ReponseCodeEnum.NO_PRIVILEGE.getCode(),Const.ReponseCodeEnum.NO_PRIVILEGE.getDesc());
         }
+
         return categoryService.add_category(parentId,categoryName);
     }
     /*

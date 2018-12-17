@@ -20,7 +20,6 @@ import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
 import com.alipay.demo.trade.utils.Utils;
-import com.alipay.demo.trade.utils.ZxingUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +32,7 @@ import java.util.*;
  * sdk和demo的意见和问题反馈请联系：liuyang.kly@alipay.com
  */
 public class Main {
-    private static Log                  log = LogFactory.getLog(Main.class);
+    private static Log log = LogFactory.getLog(Main.class);
 
     // 支付宝当面付2.0服务
     private static AlipayTradeService   tradeService;

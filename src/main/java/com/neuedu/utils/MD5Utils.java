@@ -48,9 +48,10 @@ public class MD5Utils {
    * 加密
    *
    * */
-  public static String GetMD5Code(String strObj) {
+  public static String getMD5Code(String strObj) {
     String resultString = null;
     try {
+      //加盐值得hash
       resultString = new String(strObj+"businesssdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,");
       MessageDigest md = MessageDigest.getInstance("MD5");
       // md.digest() 该函数返回值为存放哈希值结果的byte数组
@@ -61,12 +62,7 @@ public class MD5Utils {
     return resultString;
   }
 
-  public static void main(String[] args) {
-    //MD5Utils getMD5 = new MD5Utils();
-    //businesssdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,
-    System.out.println(MD5Utils.GetMD5Code("adminbusinesssdafaqj23ou89ZXcj@#$@#$#@KJdjklj;D../dSF.,"));
 
-  }
 
 
 }

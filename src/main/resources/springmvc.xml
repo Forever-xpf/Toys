@@ -13,7 +13,7 @@
     <!--开启注解-->
     <context:component-scan base-package="com.neuedu.controller" />
 
-    <!--配置控制前可以返回json格式的数据-->
+    <!--配置控制器可以返回json格式的数据-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

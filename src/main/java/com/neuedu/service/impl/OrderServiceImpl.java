@@ -48,6 +48,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -74,6 +75,7 @@ public class OrderServiceImpl implements IOrderService {
     /*
      *创建订单
      */
+    @Transactional
     public ServerResponse createOrder(Integer userId, Integer shippingId) {
 
         //step1:非空校验
@@ -103,9 +105,11 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         Order order = createOrder(userId,shippingId,orderTotalPrice);
+
         if (order == null) {
             return ServerResponse.serverResponseByError("订单创建失败");
         }
+
         //step5:将List<OrderItem>保存到数据库
 
         for (OrderItem orderItem : orderItemList) {
@@ -552,6 +556,35 @@ public class OrderServiceImpl implements IOrderService {
             return ServerResponse.serverResponseBySuccess(true);
         }
         return ServerResponse.serverResponseBySuccess(false);
+    }
+@Transactional
+    @Override
+    public void closeOrder(String time) {
+        //step1:查询订单创建时间小于等于time时间未付款的订单
+        List<Order> orderList=orderMapper.findOrderByCreateTime(Const.OrderStatusEnum.ORDER_UN_PAY.getCode(),time);
+        if(orderList!=null&&orderList.size()>0){
+            for(Order order:orderList){
+               List<OrderItem> orderItemList=orderItemMapper.selectByOrderNo(order.getOrderNo());
+               if(orderItemList!=null&&orderItemList.size()>0){
+                   for(OrderItem orderItem:orderItemList){
+                       Integer stock=productMapper.findStockByProductId(orderItem.getProductId());
+                       if(stock==null){
+                           continue;
+                       }
+                       stock=stock+orderItem.getQuantity();
+                       Product product=new Product();
+                       product.setId(orderItem.getProductId());
+                       product.setStock(stock);
+                       productMapper.updateProductKeySelecttive(product);
+                   }
+               }
+               //关闭订单
+                order.setStatus(Const.OrderStatusEnum.ORDER_CANCELED.getCode());
+               order.setCloseTime(new Date());
+               orderMapper.updateByPrimaryKey(order);
+
+            }
+        }
     }
 
 

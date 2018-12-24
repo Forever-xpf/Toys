@@ -22,9 +22,6 @@ ICartService cartService;
     public ServerResponse add(HttpSession session,Integer productId, Integer count){
 
        UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-       if(userInfo==null){
-           return  ServerResponse.serverResponseByError("需要登录");
-       }
 
         return cartService.add(userInfo.getId(),productId,count);
     }
@@ -36,9 +33,6 @@ ICartService cartService;
     public ServerResponse list(HttpSession session){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.list(userInfo.getId());
     }
@@ -50,9 +44,6 @@ ICartService cartService;
     public ServerResponse update(HttpSession session,Integer productId, Integer count){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.update(userInfo.getId(),productId,count);
     }
@@ -64,9 +55,6 @@ ICartService cartService;
     public ServerResponse delete_product(HttpSession session,String productIds){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.delete_product(userInfo.getId(),productIds);
     }
@@ -77,9 +65,6 @@ ICartService cartService;
     public ServerResponse select(HttpSession session,Integer productId){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.select(userInfo.getId(),productId,Const.CartCheckedEnum.PRODUCT_CHECKED.getCode());
     }
@@ -90,9 +75,7 @@ ICartService cartService;
     public ServerResponse un_select(HttpSession session,Integer productId){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
+
 
         return cartService.select(userInfo.getId(),productId,Const.CartCheckedEnum.PRODUCT_UNCHECKED.getCode());
     }
@@ -103,9 +86,6 @@ ICartService cartService;
     public ServerResponse select_all(HttpSession session){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.select(userInfo.getId(),null,Const.CartCheckedEnum.PRODUCT_CHECKED.getCode());
     }
@@ -117,9 +97,6 @@ ICartService cartService;
     public ServerResponse un_select_all(HttpSession session){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.select(userInfo.getId(),null,Const.CartCheckedEnum.PRODUCT_UNCHECKED.getCode());
     }
@@ -132,9 +109,6 @@ ICartService cartService;
     public ServerResponse get_cart_product_count(HttpSession session){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return  ServerResponse.serverResponseByError("需要登录");
-        }
 
         return cartService.get_cart_product_count(userInfo.getId());
     }

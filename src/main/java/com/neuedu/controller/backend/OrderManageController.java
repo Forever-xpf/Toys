@@ -26,13 +26,6 @@ public class OrderManageController {
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
 
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
-        //判断用户权限
-        if(userInfo.getRole()!=Const.RoleEnum.ROLE_ADMIN.getCode()){
-            return ServerResponse.serverResponseByError(Const.ReponseCodeEnum.NO_PRIVILEGE.getCode(),Const.ReponseCodeEnum.NO_PRIVILEGE.getDesc());
-        }
         return orderService.list(userInfo.getId(),pageNum,pageSize);
     }
     /*
@@ -41,15 +34,6 @@ public class OrderManageController {
     @RequestMapping(value = "/detail.do")
     ServerResponse detail(HttpSession session,Long orderNo){
 
-        UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
-        //判断用户权限
-        if(userInfo.getRole()!=Const.RoleEnum.ROLE_ADMIN.getCode()){
-            return ServerResponse.serverResponseByError(Const.ReponseCodeEnum.NO_PRIVILEGE.getCode(),Const.ReponseCodeEnum.NO_PRIVILEGE.getDesc());
-        }
         return orderService.detail(orderNo);
     }
 
@@ -59,15 +43,6 @@ public class OrderManageController {
     @RequestMapping(value = "/send_goods.do")
     ServerResponse send_goods(HttpSession session,Long orderNo){
 
-        UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
-        //判断用户权限
-        if(userInfo.getRole()!=Const.RoleEnum.ROLE_ADMIN.getCode()){
-            return ServerResponse.serverResponseByError(Const.ReponseCodeEnum.NO_PRIVILEGE.getCode(),Const.ReponseCodeEnum.NO_PRIVILEGE.getDesc());
-        }
         return orderService.send_goods(orderNo);
     }
 

@@ -87,4 +87,17 @@ int updateUserPassword(@Param("username") String username,@Param("passwordNew") 
 
 int updateUserBySelectActive(UserInfo userInfo);
 
+    /*
+     *更新用户token信息
+     *
+     */
+    int updateTokenByUserId(@Param("userId") Integer userId,@Param("token") String token);
+
+    /*
+    *根据token查询用户信息
+    *
+     */
+    UserInfo findUserInfoByToken(String token);
+
+
 }

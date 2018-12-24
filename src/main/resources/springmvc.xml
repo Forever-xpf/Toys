@@ -11,7 +11,9 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--开启注解-->
-    <context:component-scan base-package="com.neuedu.controller" />
+    <context:component-scan base-package="com.neuedu.controller" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!--配置控制器可以返回json格式的数据-->
     <mvc:annotation-driven>
@@ -42,6 +44,43 @@
             <value>5242880</value>
         </property>
     </bean>
+    <mvc:interceptors>
 
+        <mvc:interceptor>
+
+            <!--拦截后台的用户校验和权限校验请求-->
+
+            <mvc:mapping path="/manage/**"/>
+            <mvc:exclude-mapping path="/manage/user/login.do"/>
+
+            <bean class="com.neuedu.controller.common.intercepter.AuthorityInterceptor"></bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+
+            <!--拦截ProductController中的登录请求-->
+
+            <mvc:mapping path="/order/**"/>
+            <mvc:exclude-mapping path="/order/alipay_callback.do"/>
+            <bean class="com.neuedu.controller.common.intercepter.AuthorityInterceptorLogin"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+
+            <!--拦截CartController中的登录请求-->
+
+            <mvc:mapping path="/cart/**"/>
+
+            <bean class="com.neuedu.controller.common.intercepter.AuthorityInterceptorLogin"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+
+            <!--拦截AddressController中的登录请求-->
+
+            <mvc:mapping path="/shipping/**"/>
+
+            <bean class="com.neuedu.controller.common.intercepter.AuthorityInterceptorLogin"></bean>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
 
 </beans>

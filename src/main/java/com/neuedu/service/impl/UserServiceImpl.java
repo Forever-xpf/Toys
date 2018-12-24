@@ -1,6 +1,7 @@
 package com.neuedu.service.impl;
 
 import com.neuedu.common.Const;
+import com.neuedu.common.RedisPool;
 import com.neuedu.common.ServerResponse;
 import com.neuedu.dao.CategoryMapper;
 import com.neuedu.dao.UserInfoMapper;
@@ -8,6 +9,7 @@ import com.neuedu.pojo.Category;
 import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.IUserService;
 import com.neuedu.utils.MD5Utils;
+import com.neuedu.utils.RedisPoolUtils;
 import com.neuedu.utils.TokenCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,12 +139,13 @@ if(question==null || question.equals("")){
         //step3:服务端生成一个 token保存并将token返回给客户端
 String  forgetToken= UUID.randomUUID().toString();
    //guava  cache
-        TokenCache.set(username,forgetToken);
+     //   TokenCache.set(username,forgetToken);
+        RedisPoolUtils.set(username,forgetToken);
         return ServerResponse.serverResponseBySuccess(forgetToken);
     }
 
     /*
-     *忘记密码之重置密码密码
+     *忘记密码之重置密码
      */
     @Override
     public ServerResponse forget_Reset_Password(String username, String passwordNew, String forgetToken) {
@@ -158,7 +161,8 @@ String  forgetToken= UUID.randomUUID().toString();
         }
 
       //step2:token校验
-String token=TokenCache.get(username);
+//String token=TokenCache.get(username);
+        String token=RedisPoolUtils.get(username);
         if(token==null){
 
 return ServerResponse.serverResponseByError("token过期");
@@ -262,8 +266,23 @@ if(result>0){
         return userInfoMapper.selectByPrimaryKey(userId);
 
     }
+    /*
+     *保护用户token信息
+     */
+    @Override
+    public int updateTokenByUserId(Integer userId, String token) {
 
+        return userInfoMapper.updateTokenByUserId(userId,token);
+    }
 
+    @Override
+    public UserInfo findUserInfoByToken(String token) {
+
+        if(token==null||token.equals("")){
+            return null;
+        }
+        return userInfoMapper.findUserInfoByToken(token);
+    }
 
 
 }

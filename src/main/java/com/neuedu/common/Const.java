@@ -7,6 +7,9 @@ public class Const {
     public  static final String  CURRENTUSER="current_user";
 
     public  static final String  TRADE_SUCCESS="TRADE_SUCCESS";
+
+    public static final String AUTOLOGINTOKEN="autoLoginToken";
+
    //用户登录和提示操作
     public enum ReponseCodeEnum{
         NEED_LOGIN(2,"需要登录"),

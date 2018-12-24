@@ -31,10 +31,6 @@ IOrderService orderService;
     ServerResponse createOrder(HttpSession session,Integer shippingId){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.createOrder(userInfo.getId(),shippingId);
     }
 
@@ -45,10 +41,6 @@ IOrderService orderService;
     ServerResponse cancel(HttpSession session,Long orderNo){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.cancel(userInfo.getId(),orderNo);
     }
 
@@ -59,10 +51,6 @@ IOrderService orderService;
     ServerResponse get_order_cart_product(HttpSession session){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.get_order_cart_product(userInfo.getId());
     }
     /*
@@ -74,10 +62,6 @@ IOrderService orderService;
                         @RequestParam(required = false,defaultValue = "10")Integer pageSize){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.list(userInfo.getId(),pageNum,pageSize);
     }
     /*
@@ -86,11 +70,6 @@ IOrderService orderService;
     @RequestMapping(value = "/detail.do")
     ServerResponse detail(HttpSession session,Long orderNo){
 
-        UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.detail(orderNo);
     }
 
@@ -101,10 +80,6 @@ IOrderService orderService;
     ServerResponse pay(HttpSession session,Long orderNo){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.pay(userInfo.getId(),orderNo);
     }
 
@@ -150,11 +125,6 @@ IOrderService orderService;
     @RequestMapping(value = "/query_order_pay_status.do")
     ServerResponse query_order_pay_status(HttpSession session,Long orderNo){
 
-        UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
         return orderService.query_order_pay_status(orderNo);
     }
 

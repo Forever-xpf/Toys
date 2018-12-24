@@ -64,7 +64,11 @@ List<Product> findProductByProductIdAndProductName(@Param("productId") Integer p
                                 @Param("keyword")String keyword);
 
 
+    /*
+     *按照商品id查询商品库存
+     */
 
+    Integer findStockByProductId(Integer productId);
 
 
 }

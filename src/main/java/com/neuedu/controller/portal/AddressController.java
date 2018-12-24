@@ -25,9 +25,7 @@ public class AddressController {
     public ServerResponse add(HttpSession session, Shipping shipping){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
+
    return  addressService.add(userInfo.getId(),shipping);
     }
 
@@ -38,9 +36,7 @@ public class AddressController {
     public ServerResponse del(HttpSession session, Integer shippingId){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
+
         return  addressService.del(userInfo.getId(),shippingId);
     }
 
@@ -51,9 +47,7 @@ public class AddressController {
     public ServerResponse update(HttpSession session, Shipping shipping){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
+
         shipping.setUserId(userInfo.getId());
         return  addressService.update(shipping);
     }
@@ -64,9 +58,7 @@ public class AddressController {
 public ServerResponse select(HttpSession session, Integer shippingId){
 
     UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-    if(userInfo==null){
-        return ServerResponse.serverResponseByError("需要登录");
-    }
+
     return  addressService.select(shippingId);
 }
     /*
@@ -78,9 +70,7 @@ public ServerResponse select(HttpSession session, Integer shippingId){
                                @RequestParam(required = false,defaultValue = "10")Integer pageSize){
 
         UserInfo userInfo=(UserInfo) session.getAttribute(Const.CURRENTUSER);
-        if(userInfo==null){
-            return ServerResponse.serverResponseByError("需要登录");
-        }
+
         return  addressService.list(pageNum,pageSize);
     }
 
